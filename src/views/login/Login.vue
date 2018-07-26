@@ -3,28 +3,66 @@
         <canvas ref="canvas"></canvas>
         <div class="login-container">
             <div class="login-title">登 陆</div>
-            <div class="input-row">
-                <el-input placeholder="请输入用户名" autofocus clearable prefix-icon="el-icon-z-people" v-model="username" />
-            </div>
-            <div class="input-row login-pass">
-                <el-input placeholder="请输入密码" :type="inputType" prefix-icon="el-icon-z-lock" v-model="password">
-                    <i slot="suffix" @click="changInputType" class="el-input__icon el-icon-view"></i>
-                </el-input>
-            </div>
-            <div class="submit-btn">
-                <el-button type="primary">登陆</el-button>
-            </div>
+            <el-form :model="formData" :rules="rules" ref="ruleForm">
+                <div class="input-row">
+                    <el-form-item prop="username">
+                        <el-input placeholder="请输入用户名" clearable prefix-icon="el-icon-z-people" v-model="formData.username" />
+                    </el-form-item>
+                </div>
+                <div class="input-row login-pass">
+                    <el-form-item prop="password">
+                        <el-input placeholder="请输入密码" :type="inputType" prefix-icon="el-icon-z-lock" v-model="formData.password">
+                            <i slot="suffix" @click="changInputType" class="el-input__icon el-icon-view"></i>
+                        </el-input>
+                    </el-form-item>
+                </div>
+                <div class="submit-btn">
+                    <el-button type="primary" :loading="btnLoading" @click="submitForm('ruleForm')">登陆</el-button>
+                </div>
+            </el-form>
         </div>
     </div>
 </template>
 <script>
 import { randomNum, randomColor } from '@/utils/public';
+import { mapActions } from 'vuex';
 export default {
     name: 'Login',
     data() {
         return {
-            username: '',
-            password: '',
+            formData: {
+                username: '',
+                password: ''
+            },
+            rules: {
+                username: [
+                    {
+                        required: true,
+                        message: '请输入用户名',
+                        trigger: 'blur'
+                    },
+                    {
+                        min: 6,
+                        max: 12,
+                        message: '长度在 6 到 12 个字符',
+                        trigger: 'blur'
+                    }
+                ],
+                password: [
+                    {
+                        required: true,
+                        message: '请输入密码',
+                        trigger: 'blur'
+                    },
+                    {
+                        min: 6,
+                        max: 12,
+                        message: '长度在 6 到 12 个字符',
+                        trigger: 'blur'
+                    }
+                ]
+            },
+            btnLoading: false,
             inputType: 'password',
             canvas: null,
             ctx: null,
@@ -46,6 +84,28 @@ export default {
         this._initCanvas();
     },
     methods: {
+        ...mapActions(['loginAct', 'getInfoAct']),
+        submitForm(formName) {
+            this.$refs[formName].validate(valid => {
+                if (valid) {
+                    const loading = this.$loading({
+                        text: '登陆中'
+                    });
+                    this.btnLoading = true;
+                    this.loginAct(this.formData)
+                        .then(token => this.getInfoAct(token))
+                        .then(() => {
+                            loading.close();
+                            this.$router.push({ path: '/' });
+                        })
+                        .catch(err => {
+                            err && this.$message.error(err);
+                            this.btnLoading = false;
+                            loading.close();
+                        });
+                }
+            });
+        },
         changInputType() {
             this.inputType == 'password'
                 ? (this.inputType = 'text')
