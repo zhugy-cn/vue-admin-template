@@ -17,6 +17,7 @@ export default {
     },
 
     actions: {
+        // 登陆
         loginAct({ commit }, userInfo) {
             const username = userInfo.username.trim()
             const password = userInfo.password.trim()

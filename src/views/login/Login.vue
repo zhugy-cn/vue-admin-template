@@ -27,7 +27,7 @@
 import { randomNum, randomColor } from '@/utils/public';
 import { mapActions } from 'vuex';
 export default {
-    name: 'Login',
+    name: 'login',
     data() {
         return {
             formData: {

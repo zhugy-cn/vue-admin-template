@@ -4,6 +4,7 @@ import SvgIcon from '@/components/svgIcon/SvgIcon'// svg组件
 // register globally
 Vue.component('svg-icon', SvgIcon)
 
+// svg的名字不能用 - ，必须驼峰
 const requireAll = requireContext => requireContext.keys().map(requireContext)
 const req = require.context('./svg', false, /\.svg$/)
 requireAll(req)
