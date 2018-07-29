@@ -7,8 +7,13 @@
 export default {
     name: 'form1',
     data() {
-        return {
-        };
+        return {};
+    },
+    created() {
+        console.log('form1');
+    },
+    mounted() {
+        console.log('form1');
     }
 };
 </script>

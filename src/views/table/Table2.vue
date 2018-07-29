@@ -7,8 +7,13 @@
 export default {
     name: 'table2',
     data() {
-        return {
-        };
+        return {};
+    },
+    created() {
+        console.log('table2');
+    },
+    mounted() {
+        console.log('table2');
     }
 };
 </script>

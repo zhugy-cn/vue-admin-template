@@ -1,6 +1,6 @@
 <template>
     <div>
-        内容
+        父级2
         <router-view />
     </div>
 </template>

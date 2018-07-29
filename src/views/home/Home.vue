@@ -8,6 +8,12 @@ export default {
     name: 'home',
     data() {
         return {};
+    },
+    created() {
+        console.log('home');
+    },
+    mounted() {
+        console.log('home');
     }
 };
 </script>

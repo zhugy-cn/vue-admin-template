@@ -1,14 +1,21 @@
 <template>
     <el-container>
-        <el-aside width="200px">
+        <el-aside width="auto">
+            <!-- <div class="logo-wrapper">
+                <router-link class="logo-link" to="/">
+                </router-link>
+            </div> -->
             <side-menu />
         </el-aside>
         <el-container>
-            <el-header height="50px">
+            <el-header height="90px">
                 <header-bar />
+                <tags-nav />
             </el-header>
             <el-main>
-                <router-view />
+                <keep-alive :include="cachedRoutes">
+                    <router-view />
+                </keep-alive>
             </el-main>
             <el-footer height="50px">贵州格莱软件科技有限公司</el-footer>
         </el-container>
@@ -16,6 +23,7 @@
 </template>
 <script>
 import { SideMenu, HeaderBar, TagsNav } from './components';
+import { mapGetters, mapMutations } from 'vuex';
 export default {
     name: '',
     components: {
@@ -23,9 +31,9 @@ export default {
         HeaderBar,
         TagsNav
     },
-    data() {
-        return {};
-    },
+    computed: {
+        ...mapGetters(['cachedRoutes'])
+    }
 };
 </script>
 <style lang='scss' scoped>
@@ -33,15 +41,25 @@ export default {
     height: 100%;
 }
 .el-header {
+    padding: 0;
 }
 
 .el-aside {
+    background-color: rgb(84, 92, 100);
+    .logo-wrapper {
+        height: 50px;
+        .logo-link {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
 }
-
 .el-main {
     background-color: #e9eef3;
     color: #333;
-    text-align: center;
     line-height: 160px;
 }
 .el-footer {

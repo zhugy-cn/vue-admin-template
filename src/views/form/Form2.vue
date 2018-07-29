@@ -5,10 +5,15 @@
 </template>
 <script>
 export default {
-    name: 'form',
+    name: 'form2',
     data() {
-        return {
-        };
+        return {};
+    },
+    created() {
+        console.log('form2');
+    },
+    mounted() {
+        console.log('form2');
     }
 };
 </script>
