@@ -8,7 +8,7 @@
             <side-menu />
         </el-aside>
         <el-container>
-            <el-header height="90px">
+            <el-header height="100px">
                 <header-bar />
                 <tags-nav />
             </el-header>
@@ -42,6 +42,8 @@ export default {
 }
 .el-header {
     padding: 0;
+    z-index: 2;
+    box-shadow: 0 1px 3px rgba(26, 26, 26, 0.1);
 }
 
 .el-aside {
@@ -58,9 +60,9 @@ export default {
     }
 }
 .el-main {
-    background-color: #e9eef3;
     color: #333;
-    line-height: 160px;
+    padding: 24px;
+    background-color: #f5f7f9;
 }
 .el-footer {
     background-color: #b3c0d1;

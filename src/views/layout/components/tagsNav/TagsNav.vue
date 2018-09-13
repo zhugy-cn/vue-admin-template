@@ -1,15 +1,25 @@
 <template>
     <div class="tags-nav">
-        <div class='tags-nav-list'>
-            <router-link :class="['tags-nav-item',{'active':isActive(item)}]" :to="item.path" v-for="item in tagsList" :key="item.name">
-                <span>{{item.title}}</span>
-                <i class='el-icon-close' @click.prevent.stop='closeSelectedTag(item.name)'></i>
-            </router-link>
+        <div class="left-btn">
+            <i class='el-icon-arrow-left'></i>
         </div>
-        <el-dropdown trigger="click" @command="handleCommand">
+        <div class='scroll-outer'>
+            <div class="scroll-body">
+                <router-link :class="['tags-nav-item',{'active':isActive(item)}]" :to="item.path" v-for="item in tagsList" :key="item.name">
+                    <span class="tag-sot"></span>
+                    <span>{{item.title}}</span>
+                    <div class="icon-close">
+                        <i class='el-icon-close' @click.prevent.stop='closeSelectedTag(item.name)'></i>
+                    </div>
+                </router-link>
+            </div>
+        </div>
+        <div class="right-btn">
+            <i class='el-icon-arrow-right'></i>
+        </div>
+        <el-dropdown @command="handleCommand">
             <span class="el-dropdown-link">
-                <span>下拉菜单</span>
-                <i class="el-icon-arrow-down el-icon--right"></i>
+                <i class='el-icon-circle-close-outline'></i>
             </span>
             <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item command="closeSelectedTag">关闭当前</el-dropdown-item>
@@ -110,36 +120,91 @@ export default {
     }
 };
 </script>
+
+
+
 <style lang='scss' scoped>
 .tags-nav {
     display: flex;
-    align-items: center;
     height: 40px;
-    padding: 0 20px;
-    border-bottom: 1px solid #d8dce5;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 0 3px 0 rgba(0, 0, 0, 0.04);
+    border-top: 1px solid #f0f0f0;
+    border-bottom: 1px solid #f0f0f0;
 }
-.tags-nav-list {
+.left-btn,
+.right-btn {
     display: flex;
-}
-.tags-nav-item {
-    display: flex;
+    justify-content: center;
     align-items: center;
-    height: 26px;
-    line-height: 26px;
-    color: #495060;
-    font-size: 12px;
-    margin-right: 12px;
-    padding: 0 10px;
-    border: 1px solid #d8dce5;
-    .el-icon-close {
-        font-size: 10px;
-        margin-left: 8px;
+    width: 28px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: color 0.2s;
+    &:hover {
+        color: #2d8cf0;
     }
-    &.active {
-        background-color: #42b983;
-        color: #fff;
-        border-color: #42b983;
+}
+.el-dropdown {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-left: 1px solid #f0f0f0;
+    width: 32px;
+    font-size: 16px;
+    line-height: 1;
+    cursor: pointer;
+    .el-dropdown-link {
+        outline: none;
+    }
+}
+.scroll-outer {
+    flex: 1;
+    padding: 0 6px;
+    background-color: #f0f0f0;
+    box-shadow: inset 0 0 3px 2px rgba(99, 99, 99, 0.1);
+    .scroll-body {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        .tags-nav-item {
+            display: flex;
+            align-items: center;
+            height: 32px;
+            line-height: 1;
+            color: #515a6e;
+            font-size: 12px;
+            margin-right: 4px;
+            padding: 0 12px;
+            background-color: #fff;
+            border-radius: 3px;
+            border: 1px solid #e8eaec;
+            .tag-sot {
+                display: inline-block;
+                width: 12px;
+                height: 12px;
+                margin-right: 10px;
+                border-radius: 50%;
+                background: #e8eaec;
+                transition: background 0.2s;
+            }
+            .icon-close {
+                font-size: 10px;
+                margin-left: 12px;
+                border-radius: 50%;
+                padding: 2px;
+                transition: background 0.2s;
+                &:hover {
+                    color: #333;
+                    background-color: #e8eaec;
+                }
+            }
+
+            &.active .tag-sot {
+                background: #2d8cf0;
+            }
+            &:hover {
+                opacity: 0.85;
+            }
+        }
     }
 }
 </style>

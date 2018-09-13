@@ -29,6 +29,21 @@ export default [
         ]
     },
     {
+        path: '/components',
+        name: 'components',
+        component: Layout,
+        redirect: '/components/countTo',
+        meta: { title: '表格', icon: 'setting' },
+        children: [
+            {
+                path: 'countTo',
+                name: 'countTo',
+                meta: { title: '数字', icon: 'picture' },
+                component: () => import('@/views/components/CountTo'),
+            }
+        ]
+    },
+    {
         path: '/table',
         name: 'table',
         component: Layout,

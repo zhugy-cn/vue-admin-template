@@ -27,11 +27,12 @@ router.beforeEach((to, from, next) => {
 		if (roles.length) {
 			next();
 		} else {
-			store.dispatch('getInfoAct')
-				.then(() => next())
-				.catch(err => {
-					console.log('获取用户信息失败', err)
-				})
+			next()
+			// store.dispatch('getInfoAct')
+			// 	.then(() => next())
+			// 	.catch(err => {
+			// 		console.log('获取用户信息失败', err)
+			// 	})
 		}
 	} else {
 		if (to.name === 'login') {
