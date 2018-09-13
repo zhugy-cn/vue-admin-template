@@ -1,4 +1,4 @@
-项目地址：[http://pc.zhugy.cn]
+预览地址：http://pc.zhugy.cn
 
 
 # vue-admin-template
